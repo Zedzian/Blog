@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Data.Context
 {
-	public class Comment : EntityBase
+    public class RoleUser
 	{
-		public string Content { get; set; }
+		[Key]
+		public int RoleId { get; set; }
 
+		[Key]
 		public int UserId { get; set; }
 
-		public int PostId { get; set; }
+		public Role Role { get; set; }
 
 		public User User { get; set; }
-
-		public Post Post { get; set; }
 	}
 }

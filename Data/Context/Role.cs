@@ -7,5 +7,7 @@ namespace Data.Context
 	public class Role : EntityBase
 	{
 		public string RoleName { get; set; }
+
+		public virtual ICollection<RoleUser> RoleUsers { get; set; }
 	}
 }

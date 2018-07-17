@@ -19,5 +19,7 @@ namespace Data.Context
 		public DateTime ModifyDate { get; set; }
 
 		public int UserId { get; set; }
+
+		public virtual ICollection<Comment> Comments { get; set; }
 	}
 }
