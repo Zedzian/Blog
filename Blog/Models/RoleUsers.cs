@@ -6,9 +6,9 @@ namespace Blog.Models
     public partial class RoleUsers
     {
         public int RoleId { get; set; }
-        public int UserId { get; set; }
+        public string UserId { get; set; }
 
-        public Roles Role { get; set; }
-        public Users User { get; set; }
+        public virtual Roles Role { get; set; }
+        public virtual Users User { get; set; }
     }
 }

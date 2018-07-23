@@ -1,20 +1,12 @@
 ﻿using System;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Blog.Models
 {
-	public partial class BlogContext : DbContext
+	public partial class BlogContext : IdentityDbContext<Users>
 	{
-		public BlogContext()
-		{
-		}
-
-		public BlogContext(DbContextOptions<BlogContext> options)
-			: base(options)
-		{
-		}
-
 		public virtual DbSet<Blogs> Blogs { get; set; }
 		public virtual DbSet<Categories> Categories { get; set; }
 		public virtual DbSet<Comments> Comments { get; set; }
@@ -22,6 +14,11 @@ namespace Blog.Models
 		public virtual DbSet<Roles> Roles { get; set; }
 		public virtual DbSet<RoleUsers> RoleUsers { get; set; }
 		public virtual DbSet<Users> Users { get; set; }
+
+		public BlogContext(DbContextOptions<BlogContext> options)
+				: base(options)
+		{
+		}
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
@@ -33,6 +30,8 @@ namespace Blog.Models
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
+			base.OnModelCreating(modelBuilder);
+
 			modelBuilder.Entity<Comments>(entity =>
 			{
 				entity.HasIndex(e => e.PostId);

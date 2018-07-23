@@ -17,7 +17,7 @@ namespace Blog.Models
         public string Content { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime ModifyDate { get; set; }
-        public int UserId { get; set; }
+        public string UserId { get; set; }
 
         public Users User { get; set; }
         public ICollection<Comments> Comments { get; set; }
