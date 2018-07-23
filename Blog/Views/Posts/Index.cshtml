@@ -1,72 +1,44 @@
 ﻿@model IEnumerable<Blog.Models.Posts>
 
 @{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewData["Title"] = "Index";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Index</h2>
-
 <p>
-    <a asp-action="Create">Create New</a>
+	<a asp-action="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.PostName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Content)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreateDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ModifyDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.User)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.PostName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Content)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreateDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ModifyDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.Id)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.PostId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.PostId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.PostId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="row">
+	<div class="header">
+		<h2>Chomikowe rozmaitości</h2>
+	</div>
+	<div class="leftcolumn">
+		@foreach (var item in Model.OrderByDescending(x=>x.CreateDate))
+		{
+			<div class="card">
+				<h2>@Html.DisplayFor(modelItem => item.Title)</h2>
+
+				<h5>@Html.DisplayFor(modelItem => item.PostName), @Html.DisplayFor(modelItem => item.CreateDate)</h5>
+				<div class="fakeimg" style="height:200px;">Image</div>
+				<br />
+				<p>@Html.DisplayFor(modelItem => item.Content)</p>
+			</div>
+		}
+	</div>
+	<div class="rightcolumn">
+		<div class="card">
+			<h2>O mnie</h2>
+			<img class="about-me-image" src="~/images/chomik.jpg" />
+			<p>Nazywam się Magda. Uwielbiam chomiki, dlatego też chętnie opowiem Wam o nich więcej na moim blogu. Zapraszam do lektury. :)</p>
+		</div>
+		<div class="card">
+			<h3>Popularne posty</h3>
+			<div class="fakeimg">Image</div><br>
+			<div class="fakeimg">Image</div><br>
+			<div class="fakeimg">Image</div>
+		</div>
+		<div class="card">
+			<h3>Znajdź mnie</h3>
+			<a href="https://github.com/Zedzian" class="fab fa-github-alt fa-w-15 fa-2x github-link"></a>
+		</div>
+	</div>
+</div>
