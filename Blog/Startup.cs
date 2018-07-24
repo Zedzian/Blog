@@ -28,7 +28,7 @@ namespace Blog
 			services.AddDbContext<BlogContext>(options =>
 			options.UseSqlServer(Configuration.GetConnectionString("BlogDb")));
 
-			services.AddIdentity<Users, IdentityRole>(options =>
+			services.AddIdentity<User, IdentityRole>(options =>
 			{
 				options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
 			})

@@ -3,16 +3,16 @@ using System.Collections.Generic;
 
 namespace Blog.Models
 {
-    public partial class Roles
+    public partial class Role
     {
-        public Roles()
+        public Role()
         {
-            RoleUsers = new HashSet<RoleUsers>();
+            RoleUsers = new HashSet<UserRole>();
         }
 
         public int Id { get; set; }
         public string RoleName { get; set; }
 
-        public ICollection<RoleUsers> RoleUsers { get; set; }
+        public ICollection<UserRole> RoleUsers { get; set; }
     }
 }

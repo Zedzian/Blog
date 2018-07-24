@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 
 using Blog.Models;
-using Blog.Models.AccountViewModels;
+using Blog.Models.ViewModels;
 
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -16,16 +16,16 @@ namespace Blog.Controllers
 	[Authorize]
 	public class AccountController : Controller
 	{
-		private readonly UserManager<Users> _userManager;
+		private readonly UserManager<User> _userManager;
 		private readonly RoleManager<IdentityRole> _roleManager;
-		private readonly SignInManager<Users> _signInManager;
+		private readonly SignInManager<User> _signInManager;
 		private readonly IConfiguration _configuration;
 		private readonly BlogContext _context;
 
 		public AccountController(
-			UserManager<Users> userManager,
+			UserManager<User> userManager,
 			RoleManager<IdentityRole> roleManager,
-			SignInManager<Users> signInManager,
+			SignInManager<User> signInManager,
 			IConfiguration configuration,
 			BlogContext context
 			)
@@ -95,7 +95,7 @@ namespace Blog.Controllers
 			ViewData["ReturnUrl"] = returnUrl;
 			if (ModelState.IsValid)
 			{
-				var user = new Users { UserName = model.Email, Email = model.Email };
+				var user = new User { UserName = model.Email, Email = model.Email };
 				var result = await _userManager.CreateAsync(user, model.Password);
 				if (result.Succeeded)
 				{

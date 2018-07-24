@@ -3,9 +3,9 @@
 @using Microsoft.AspNetCore.Http
 @using Microsoft.AspNetCore.Http.Authentication
 @using Microsoft.AspNetCore.Identity
-@using Blog.Models.AccountViewModels
+@using Blog.Models.ViewModels
 @model LoginViewModel
-@inject SignInManager<Users> SignInManager
+@inject SignInManager<User> SignInManager
 
 @{
 	ViewData["Title"] = "Log in";

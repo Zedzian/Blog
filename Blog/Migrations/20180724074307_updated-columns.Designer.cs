@@ -4,14 +4,16 @@ using Blog.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Blog.Migrations
 {
     [DbContext(typeof(BlogContext))]
-    partial class BlogContextModelSnapshot : ModelSnapshot
+    [Migration("20180724074307_updated-columns")]
+    partial class updatedcolumns
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -57,7 +59,7 @@ namespace Blog.Migrations
 
                     b.Property<string>("Content");
 
-                    b.Property<string>("PostId");
+                    b.Property<int>("PostId");
 
                     b.Property<string>("UserId");
 
@@ -72,7 +74,7 @@ namespace Blog.Migrations
 
             modelBuilder.Entity("Blog.Models.Image", b =>
                 {
-                    b.Property<int>("ImageId")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -80,29 +82,32 @@ namespace Blog.Migrations
 
                     b.Property<long>("ImageSize");
 
-                    b.Property<string>("PostId");
-
                     b.Property<string>("Title");
 
                     b.Property<DateTime>("UploadDT");
 
-                    b.HasKey("ImageId");
+                    b.Property<string>("UserId");
 
-                    b.HasIndex("PostId");
+                    b.HasKey("ID");
 
                     b.ToTable("Images");
                 });
 
             modelBuilder.Entity("Blog.Models.Post", b =>
                 {
-                    b.Property<string>("PostId")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("PostId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Content");
 
                     b.Property<DateTime>("CreateDate");
 
+                    b.Property<string>("Description");
+
                     b.Property<DateTime>("ModifyDate");
+
+                    b.Property<string>("PostName");
 
                     b.Property<string>("Title");
 
@@ -315,13 +320,6 @@ namespace Blog.Migrations
                     b.HasOne("Blog.Models.User", "User")
                         .WithMany("Comments")
                         .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("Blog.Models.Image", b =>
-                {
-                    b.HasOne("Blog.Models.Post", "Post")
-                        .WithMany("Images")
-                        .HasForeignKey("PostId");
                 });
 
             modelBuilder.Entity("Blog.Models.Post", b =>

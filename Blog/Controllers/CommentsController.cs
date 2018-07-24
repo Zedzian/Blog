@@ -58,7 +58,7 @@ namespace Blog.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UserId,Content,PostId")] Comments comments)
+        public async Task<IActionResult> Create([Bind("Id,UserId,Content,PostId")] Comment comments)
         {
             if (ModelState.IsValid)
             {
@@ -94,7 +94,7 @@ namespace Blog.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,UserId,Content,PostId")] Comments comments)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,UserId,Content,PostId")] Comment comments)
         {
             if (id != comments.Id)
             {

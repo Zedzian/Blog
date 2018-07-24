@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Blog.Models
 {
-    public partial class Blogs
+    public partial class BlogDetails
     {
         public int Id { get; set; }
         public string BlogName { get; set; }

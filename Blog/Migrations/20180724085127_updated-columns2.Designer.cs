@@ -4,14 +4,16 @@ using Blog.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Blog.Migrations
 {
     [DbContext(typeof(BlogContext))]
-    partial class BlogContextModelSnapshot : ModelSnapshot
+    [Migration("20180724085127_updated-columns2")]
+    partial class updatedcolumns2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -72,7 +74,7 @@ namespace Blog.Migrations
 
             modelBuilder.Entity("Blog.Models.Image", b =>
                 {
-                    b.Property<int>("ImageId")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -86,9 +88,7 @@ namespace Blog.Migrations
 
                     b.Property<DateTime>("UploadDT");
 
-                    b.HasKey("ImageId");
-
-                    b.HasIndex("PostId");
+                    b.HasKey("ID");
 
                     b.ToTable("Images");
                 });
@@ -102,7 +102,11 @@ namespace Blog.Migrations
 
                     b.Property<DateTime>("CreateDate");
 
+                    b.Property<string>("Description");
+
                     b.Property<DateTime>("ModifyDate");
+
+                    b.Property<string>("PostName");
 
                     b.Property<string>("Title");
 
@@ -315,13 +319,6 @@ namespace Blog.Migrations
                     b.HasOne("Blog.Models.User", "User")
                         .WithMany("Comments")
                         .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("Blog.Models.Image", b =>
-                {
-                    b.HasOne("Blog.Models.Post", "Post")
-                        .WithMany("Images")
-                        .HasForeignKey("PostId");
                 });
 
             modelBuilder.Entity("Blog.Models.Post", b =>

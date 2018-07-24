@@ -53,7 +53,7 @@ namespace Blog.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,BlogName,Description,CreateDate")] Blogs blogs)
+        public async Task<IActionResult> Create([Bind("Id,BlogName,Description,CreateDate")] BlogDetails blogs)
         {
             if (ModelState.IsValid)
             {
@@ -85,7 +85,7 @@ namespace Blog.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,BlogName,Description,CreateDate")] Blogs blogs)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,BlogName,Description,CreateDate")] Models.BlogDetails blogs)
         {
             if (id != blogs.Id)
             {

@@ -5,15 +5,16 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Blog.Models
 {
-	public partial class BlogContext : IdentityDbContext<Users>
+	public partial class BlogContext : IdentityDbContext<User>
 	{
-		public virtual DbSet<Blogs> Blogs { get; set; }
-		public virtual DbSet<Categories> Categories { get; set; }
-		public virtual DbSet<Comments> Comments { get; set; }
-		public virtual DbSet<Posts> Posts { get; set; }
-		public virtual DbSet<Roles> Roles { get; set; }
-		public virtual DbSet<RoleUsers> RoleUsers { get; set; }
-		public virtual DbSet<Users> Users { get; set; }
+		public virtual DbSet<BlogDetails> Blogs { get; set; }
+		public virtual DbSet<Category> Categories { get; set; }
+		public virtual DbSet<Comment> Comments { get; set; }
+		public virtual DbSet<Image> Images { get; set; }
+		public virtual DbSet<Post> Posts { get; set; }
+		public virtual DbSet<Role> Roles { get; set; }
+		public virtual DbSet<UserRole> RoleUsers { get; set; }
+		public virtual DbSet<User> Users { get; set; }
 
 		public BlogContext(DbContextOptions<BlogContext> options)
 				: base(options)
@@ -32,7 +33,7 @@ namespace Blog.Models
 		{
 			base.OnModelCreating(modelBuilder);
 
-			modelBuilder.Entity<Comments>(entity =>
+			modelBuilder.Entity<Comment>(entity =>
 			{
 				entity.HasIndex(e => e.PostId);
 
@@ -49,7 +50,7 @@ namespace Blog.Models
 					.OnDelete(DeleteBehavior.ClientSetNull);
 			});
 
-			modelBuilder.Entity<Posts>(entity =>
+			modelBuilder.Entity<Post>(entity =>
 			{
 				entity.HasKey(e => e.PostId);
 
@@ -60,7 +61,7 @@ namespace Blog.Models
 					.HasForeignKey(d => d.UserId);
 			});
 
-			modelBuilder.Entity<RoleUsers>(entity =>
+			modelBuilder.Entity<UserRole>(entity =>
 			{
 				entity.HasKey(e => new { e.RoleId, e.UserId });
 

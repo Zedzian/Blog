@@ -1,4 +1,4 @@
-﻿@model Blog.Models.Posts
+﻿@model Blog.Models.Post
 
 @{
     ViewData["Title"] = "Delete";
@@ -13,22 +13,10 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.PostName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.PostName)
-        </dd>
-        <dt>
             @Html.DisplayNameFor(model => model.Title)
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Description)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Content)

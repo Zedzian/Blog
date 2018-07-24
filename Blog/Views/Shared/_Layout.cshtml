@@ -27,11 +27,11 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Blog</a>
+				<a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Blog Madzi</a>
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="main-navbar nav navbar-nav">
-					<li><a asp-area="" asp-controller="Posts" asp-action="Index">Posts</a></li>
+					<li><a asp-area="" asp-controller="Posts" asp-action="Index">Posty</a></li>
 					@if (User.Identity.IsAuthenticated && Blog.Helpers.Extensions.HasRole(User, "ADMIN"))
 					{
 						<li><a asp-area="" asp-controller="Posts" asp-action="Create">Dodaj nowy post</a></li>
@@ -63,7 +63,7 @@
 		@RenderBody()
 		<hr />
 		<footer>
-			<p>&copy; 2018 - Blog</p>
+			<p>&copy; 2018 - Blog Madzi</p>
 		</footer>
 	</div>
 
