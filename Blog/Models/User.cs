@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+
 using Microsoft.AspNetCore.Identity;
 
 namespace Blog.Models
@@ -8,7 +8,6 @@ namespace Blog.Models
 	{
 		public User()
 		{
-			Comments = new HashSet<Comment>();
 			Posts = new HashSet<Post>();
 			RoleUsers = new HashSet<UserRole>();
 		}
@@ -17,7 +16,6 @@ namespace Blog.Models
 		public string FirstName { get; set; }
 		public string LastName { get; set; }
 
-		public ICollection<Comment> Comments { get; set; }
 		public ICollection<Post> Posts { get; set; }
 		public ICollection<UserRole> RoleUsers { get; set; }
 	}

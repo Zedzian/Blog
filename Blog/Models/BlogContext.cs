@@ -1,7 +1,5 @@
-﻿using System;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Blog.Models
 {
@@ -37,17 +35,9 @@ namespace Blog.Models
 			{
 				entity.HasIndex(e => e.PostId);
 
-				entity.HasIndex(e => e.UserId);
-
 				entity.HasOne(d => d.Post)
 					.WithMany(p => p.Comments)
-					.HasForeignKey(d => d.PostId)
-					.OnDelete(DeleteBehavior.ClientSetNull);
-
-				entity.HasOne(d => d.User)
-					.WithMany(p => p.Comments)
-					.HasForeignKey(d => d.UserId)
-					.OnDelete(DeleteBehavior.ClientSetNull);
+					.HasForeignKey(d => d.PostId);
 			});
 
 			modelBuilder.Entity<Post>(entity =>
@@ -69,13 +59,11 @@ namespace Blog.Models
 
 				entity.HasOne(d => d.Role)
 					.WithMany(p => p.RoleUsers)
-					.HasForeignKey(d => d.RoleId)
-					.OnDelete(DeleteBehavior.ClientSetNull);
+					.HasForeignKey(d => d.RoleId);
 
 				entity.HasOne(d => d.User)
 					.WithMany(p => p.RoleUsers)
-					.HasForeignKey(d => d.UserId)
-					.OnDelete(DeleteBehavior.ClientSetNull);
+					.HasForeignKey(d => d.UserId);
 			});
 		}
 	}
