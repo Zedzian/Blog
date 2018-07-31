@@ -1,19 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+
+using Blog.Models;
+using Blog.Models.ViewModels;
+
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Blog.Models;
-using Microsoft.AspNetCore.Authorization;
-using Blog.Models.ViewModels;
-using Microsoft.AspNet.Identity;
-using System.Security.Claims;
-using Blog.Utilities;
-using System.Drawing;
-using Microsoft.AspNetCore.Http;
-using System.IO;
 
 namespace Blog.Controllers
 {
@@ -32,7 +31,7 @@ namespace Blog.Controllers
 		// GET: Posts
 		public async Task<IActionResult> Index()
 		{
-			var posts = _context.Posts.ToList();
+			var posts = _context.Posts.Include(x => x.Comments).ToList();
 			var postViewModels = new List<PostViewModel>();
 			foreach (var post in posts)
 			{
@@ -45,6 +44,7 @@ namespace Blog.Controllers
 				postViewModel.PostId = post.PostId;
 				postViewModel.Title = post.Title;
 				postViewModel.UserId = post.UserId;
+				postViewModel.Comments = post.Comments;
 
 				postViewModels.Add(postViewModel);
 			}
