@@ -9,22 +9,65 @@
 		<h2>Chomikowe rozmaitości</h2>
 	</div>
 	<div class="leftcolumn">
-		@foreach (var item in Model.OrderByDescending(x => x.CreateDate))
+		@foreach (var post in Model.OrderByDescending(x => x.CreateDate))
 		{
 			<div class="card">
-				<h2>@Html.DisplayFor(modelItem => item.Title)</h2>
+				<h2>@Html.DisplayFor(modelItem => post.Title)</h2>
 
-				<h5>@Html.DisplayFor(modelItem => item.CreateDate)</h5>
-				@if (@Html.DisplayFor(modelItem => item.ImageData) != null)
+				<h5>@Html.DisplayFor(modelItem => post.CreateDate)</h5>
+				@if (@Html.DisplayFor(modelItem => post.ImageData) != null)
 				{
-					<div style="max-height:200px;"><img style="max-height:200px;" src="@Html.DisplayFor(modelItem => item.ImageData)"></div>
+					<div style="max-height:200px;"><img style="max-height:200px;" src="@Html.DisplayFor(modelItem => post.ImageData)"></div>
 				}
 				else
-				{ 
+				{
 					<div class="fakeimg" style="max-height:200px;"></div>
 				}
 				<br />
-				<p>@Html.DisplayFor(modelItem => item.Content)</p>
+				<p>@Html.DisplayFor(modelItem => post.Content)</p>
+				<p>
+					<button id="modalButton+@post.PostId.ToString()" onclick="addComment();">Dodaj komentarz</button>
+				</p>
+				<div class="modal" id="commentModal+@post.PostId.ToString()">
+					<div class="modal-content">
+						<span class="close">&times;</span>
+						<div class="form-group">
+							<label class="control-label">Nazwa użytkownika</label>
+							<input class="form-control" />
+						</div>
+						<div class="form-group">
+							<label class="control-label comment-content">Treść komentarza</label>
+							<input class="form-control" />
+						</div>
+						<div class="form-group">
+						</div>
+						<div class="form-group">
+							<input type="submit" value="Dodaj komentarz" class="btn btn-default" />
+						</div>
+					</div>
+				</div>
+				@foreach (var comment in Model.First(x => x.PostId == post.PostId).Comments.OrderByDescending(c => c.Date))
+				{
+					<div class="dialogbox">
+						<div class="body">
+							<span class="tip tip-left"></span>
+							<div class="message">
+								@comment.Date<br />
+								<b><span>@comment.UserName</span></b>
+								@if (comment.UserName[comment.UserName.Length - 1] == 'a')
+								{
+									<span>napisała:</span>
+								}
+								else
+								{
+									<span>napisał:</span>
+								}
+								<br />
+								<span>@comment.Content</span>
+							</div>
+						</div>
+					</div>
+				}
 			</div>
 		}
 	</div>
@@ -46,3 +89,111 @@
 		</div>
 	</div>
 </div>
+<script>
+	function addComment() {
+
+		console.log('nie działa');
+	}
+	var modal = document.getElementById('commentModal', @Model.);
+
+	// Get the button that opens the modal
+	var btn = document.getElementById("modalButton");
+
+	// Get the <span> element that closes the modal
+	var span = document.getElementsByClassName("close")[0];
+
+	// When the user clicks on the button, open the modal
+	btn.onclick = function () {
+		modal.style.display = "block";
+	}
+
+	// When the user clicks on <span> (x), close the modal
+	span.onclick = function () {
+		modal.style.display = "none";
+	}
+
+	// When the user clicks anywhere outside of the modal, close it
+	window.onclick = function (event) {
+		if (event.target == modal) {
+			modal.style.display = "none";
+		}
+	}
+</script>
+<style>
+	.comment-content {
+		min-height: 50px;
+	}
+
+	.modal {
+		display: none; /* Hidden by default */
+		position: fixed; /* Stay in place */
+		z-index: 1; /* Sit on top */
+		left: 0;
+		top: 0;
+		width: 100%; /* Full width */
+		height: 100%; /* Full height */
+		overflow: auto; /* Enable scroll if needed */
+		background-color: rgb(0,0,0); /* Fallback color */
+		background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+	}
+
+	/* Modal Content/Box */
+	.modal-content {
+		background-color: #fefefe;
+		margin: 15% auto; /* 15% from the top and centered */
+		padding: 20px;
+		border: 1px solid #888;
+		width: 80%; /* Could be more or less, depending on screen size */
+	}
+
+	/* The Close Button */
+	.close {
+		color: #aaa;
+		float: right;
+		font-size: 28px;
+		font-weight: bold;
+	}
+
+		.close:hover,
+		.close:focus {
+			color: black;
+			text-decoration: none;
+			cursor: pointer;
+		}
+
+	.tip {
+		width: 0px;
+		height: 0px;
+		position: absolute;
+		background: transparent;
+		border: 10px solid #ccc;
+	}
+
+	.tip-left {
+		top: 10px;
+		left: -25px;
+		border-top-color: transparent;
+		border-left-color: transparent;
+		border-bottom-color: transparent;
+	}
+
+	.dialogbox .body {
+		position: relative;
+		max-width: 300px;
+		height: auto;
+		margin: 20px 10px;
+		padding: 5px;
+		background-color: #DADADA;
+		border-radius: 3px;
+		border: 5px solid #ccc;
+	}
+
+	.body .message {
+		min-height: 30px;
+		border-radius: 3px;
+		font-family: Arial;
+		font-size: 14px;
+		line-height: 1.5;
+		color: #797979;
+	}
+</style>
